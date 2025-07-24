@@ -164,9 +164,9 @@ class MainScreen(Screen):
                 time_penalty = 0#Make sure time penalty is 0
             elif 25<=prep_time<=35:
                 time_penalty = 3
-            elif 35<=prep_time<=45:
+            elif 35<prep_time<=45:
                 time_penalty = 6
-            elif 45<=prep_time<=60:
+            elif 45<prep_time<=60:
                 time_penalty = 12
             else:#Time is over an hour
                 time_penalty = 25
@@ -183,7 +183,7 @@ class MainScreen(Screen):
             layout = GridLayout(cols=1, padding=10)
 
             #Make a label for that layout and a button also
-            popupLabel = Label(text="Error Processing Your Request, Please Ensure That All\n Fields Have Been Filled With Natural Numbers", font_size = "60")
+            popupLabel = Label(text="Error Processing Your Request, Please Ensure That All\n Fields Have Been Filled With Natural Numbers", font_size = "60", color=(1,1,1,1))
             closeButton = Button(text="Exit Back To Home Screen",
                                      background_color="deeppink", color=(1, 1, 1, 1),
                                      background_normal='', font_size = "60")
@@ -192,7 +192,7 @@ class MainScreen(Screen):
             layout.add_widget(closeButton)
 
             popup = Popup(title='An Error Occurred',
-                              content=layout, separator_color="deeppink", overlay_color="deeppink", title_color = "deeppink")#Make the popup
+                              content=layout, separator_color="deeppink", overlay_color="deeppink", title_color = (1,1,1,1))#Make the popup
             popup.open()#Open the popup
 
             closeButton.bind(on_press=popup.dismiss)#Make the button close the window
@@ -205,7 +205,7 @@ class MainScreen(Screen):
 
             # Make a label for that layout and a button also
             popupLabel = Label(
-                text=f"Based off a prep time of {prep_time} minute(s), {minor_errors_count} minor error(s),\n {medium_errors_count} medium-level error(s), and {severe_errors_count} severe error(s),\n a score of {score} was calculated.", font_size = "60")
+                text=f"Based off a prep time of {prep_time} minute(s), {minor_errors_count} minor error(s),\n {medium_errors_count} medium-level error(s), and {severe_errors_count} severe error(s),\n a score of {score} was calculated.", font_size = "60", color=(1,1,1,1))
             closeButton = Button(text="Exit Back To Home Screen",
                                  background_color="deeppink", color=(1, 1, 1, 1),
                                  background_normal='', font_size = "60")
@@ -214,7 +214,7 @@ class MainScreen(Screen):
             layout.add_widget(closeButton)
 
             popup = Popup(title='Your Results',
-                          content=layout, separator_color="deeppink", overlay_color="deeppink", title_color = "deeppink")  # Make the popup
+                          content=layout, separator_color="deeppink", overlay_color="deeppink", title_color = (1,1,1,1))  # Make the popup
             popup.open()  # Open the popup
 
             closeButton.bind(on_press=popup.dismiss)  # Make the button close the window
@@ -229,9 +229,15 @@ class AboutScreen(Screen):
         # Overall Layout
         layout = RelativeLayout()
 
-        layout.add_widget(Label(text="About This:", font_size=75, size_hint=(1, 0.1), pos_hint={"center_x": 0.5, "center_y": 0.9}))
-        layout.add_widget(Label(text="This was a project made for Pendo which will help them measure how \nproductive an AI is at making basic standard contracts.", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.8}))
-        layout.add_widget(Label(text="This app takes in the time made to prepare a standard contract,\n the number of minor errors, the number of medium-level errors,\n and the number of severe errors in order to make a productivity score.", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.65}))
+        #Add the title text
+        layout.add_widget(Label(text="About This:", font_size=75, size_hint=(1, 0.1), pos_hint={"center_x": 0.5, "center_y": 0.95}, bold=True))
+
+        #Add the body text pieces
+        layout.add_widget(Label(text="This was a project made for Pendo which will help them measure how \nproductive an AI is at making basic standard contracts.", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.85}))
+        layout.add_widget(Label(text="This app takes in the time made to prepare a standard contract,\n the number of minor errors, the number of medium-level errors,\n and the number of severe errors in order to make a productivity score.", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.7}))
+        layout.add_widget(Label(text="The penalty for prep time in minutes m is as follows:\n| 0<=m<25: 0 | 25<=m<=35: -3 | 35<m<=45: -6 | 45<m<=60: -12 |\n| m>60: -25 |", font_size=60, size_hint=(1, 0.1), pos_hint={"x": -0.035, "center_y": 0.53}))
+        layout.add_widget(Label(text="The formula for the score is: \n100 - timepenalty - (3 x numberofminorerrors)\n - (10 x numberofmediumlevelerrors) - (40 x number of severe errors)", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.35}))
+        layout.add_widget(Label(text="The github link for this is \nhttps://github.com/atulbhai1/TimeAndAccuracyScoreCalculatorPen\ndoforOrby#", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.17}))
 
 
         self.add_widget(layout)
