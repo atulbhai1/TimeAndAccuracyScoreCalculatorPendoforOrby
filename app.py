@@ -11,6 +11,8 @@ from kivy.lang.builder import Builder
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.graphics import Color, Rectangle
 from kivy.properties import ColorProperty
+from kivy.config import Config
+
 
 
 Window.clearcolor = (1, 1, 1, 1)
@@ -256,9 +258,10 @@ class MyApp(App):
     def build(self):
         self.title = "Pendotivity!"
         sm = ScreenManager()
-        sm.add_widget(MainScreen(name="main"))
-        sm.add_widget(AboutScreen(name="about"))
-
+        sm.add_widget(MainScreen(name="main"))#Add the main screen
+        sm.add_widget(AboutScreen(name="about"))#Add the about screen
+        #Set the app icon
+        self.icon = "pendologo.png"
 
         return sm
 
