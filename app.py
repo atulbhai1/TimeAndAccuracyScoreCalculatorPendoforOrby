@@ -201,7 +201,7 @@ class MainScreen(Screen):
 
             # Make a POPUP to display the results!!!!!!!:)
             # Make a temp layout
-            layout = GridLayout(cols=1, padding=10, color="white")
+            layout = GridLayout(cols=1, padding=10)
 
             # Make a label for that layout and a button also
             popupLabel = Label(
@@ -220,15 +220,28 @@ class MainScreen(Screen):
             closeButton.bind(on_press=popup.dismiss)  # Make the button close the window
 
     def go_to_about(self, instance):
-        pass
+        self.switch_to_screen("about")
+
+class AboutScreen(Screen):
+    def __init__(self, **kwargs):
+        super(AboutScreen, self).__init__(**kwargs)
+
+        # Overall Layout
+        layout = RelativeLayout()
+
+        layout.add_widget(Label(text="About This:", font_size=75, size_hint=(1, 0.1), pos_hint={"center_x": 0.5, "center_y": 0.9}))
+        layout.add_widget(Label(text="This was a project made for Pendo which will help them measure how \nproductive an AI is at making basic standard contracts.", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.8}))
+        layout.add_widget(Label(text="This app takes in the time made to prepare a standard contract,\n the number of minor errors, the number of medium-level errors,\n and the number of severe errors in order to make a productivity score.", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.65}))
 
 
+        self.add_widget(layout)
 
 class MyApp(App):
     def build(self):
         self.title = "Productivity Score Calculator"
         sm = ScreenManager()
         sm.add_widget(MainScreen(name="main"))
+        sm.add_widget(AboutScreen(name="about"))
 
 
         return sm
