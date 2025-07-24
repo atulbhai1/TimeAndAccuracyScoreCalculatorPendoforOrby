@@ -70,7 +70,7 @@ class MainScreen(Screen):
         # Minor Errors label
         minor_errors_layout.add_widget(
             Label(text="Number of minor errors:", font_size=60, size_hint=(0.5, 0.17),
-                  pos_hint={"x": 0.1, "center_y": 0.65}))
+                  pos_hint={"x": -0.073, "center_y": 0.65}))
 
         # Minor Errors input
         self.minor_errors_real_input = TextInput(hint_text="5", size_hint=(0.06, 0.27), multiline=False, font_size="60",
@@ -84,7 +84,7 @@ class MainScreen(Screen):
         # Medium Errors label
         medium_errors_layout.add_widget(
             Label(text="Number of medium level errors:", font_size=60, size_hint=(0.5, 0.17),
-                  pos_hint={"x": 0.1, "center_y": 0.55}))
+                  pos_hint={"x": -0.021, "center_y": 0.55}))
 
         # Medium Errors input
         self.medium_errors_real_input = TextInput(hint_text="3", size_hint=(0.06, 0.27), multiline=False, font_size="60",
@@ -96,8 +96,8 @@ class MainScreen(Screen):
 
         # Severe Errors label
         severe_errors_layout.add_widget(
-            Label(text="Number of severe level errors:", font_size=60, size_hint=(0.5, 0.17),
-                  pos_hint={"x": 0.1, "center_y": 0.45}))
+            Label(text="Number of severe errors:", font_size=60, size_hint=(0.5, 0.17),
+                  pos_hint={"x": -0.067, "center_y": 0.45}))
 
         # Severe Errors input
         self.severe_errors_real_input = TextInput(hint_text="1", size_hint=(0.06, 0.27), multiline=False,
@@ -260,7 +260,7 @@ class AboutScreen(Screen):
 
 class MyApp(App):
     def build(self):
-        self.title = "Productivity Score Calculator"
+        self.title = "Pendotivity!"
         sm = ScreenManager()
         sm.add_widget(MainScreen(name="main"))
         sm.add_widget(AboutScreen(name="about"))
