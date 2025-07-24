@@ -1,3 +1,39 @@
 <Label>:
     color: "deeppink"
+<PopupGridLayout>:
+    canvas:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
+<TitleLabelLayout>:
+    rows: 1
+    Label:
+        text: "Productivity Score Calculator"
+        font_size: 75
+        size_hint: (1, 0.1)
+        color: "white"
+        bold: True
+        canvas.before:
+            Color:
+                rgba: 1, 20/255, 147/255, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+<AboutLabelLayout>:
+    rows: 1
+    Label:
+        text: "About This"
+        font_size: 75
+        size_hint: (1, 0.1)
+        color: "white"
+        bold: True
+        canvas.before:
+            Color:
+                rgba: 1, 20/255, 147/255, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size

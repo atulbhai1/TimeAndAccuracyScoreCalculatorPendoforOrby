@@ -16,6 +16,7 @@ from kivy.config import Config
 from kivy.uix.relativelayout import RelativeLayout
 #from kivy.uix.widget import Widget
 from kivy.graphics import Color, Rectangle
+from kivy.properties import ColorProperty
 
 
 Window.clearcolor = (1, 1, 1, 1)
@@ -26,7 +27,13 @@ Builder.load_file('app.kv')
 #Score is a universal variable
 score = 0
 
+class PopupGridLayout(GridLayout):
+    background_color = ColorProperty()
 
+class TitleLabelLayout(GridLayout):
+    pass
+class AboutLabelLayout(GridLayout):
+    pass
 class MainScreen(Screen):
     def __init__(self, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
@@ -36,16 +43,15 @@ class MainScreen(Screen):
 
 
 
-        # Welcome Text
+        '''# Welcome Text
         welcome_layout = RelativeLayout(size_hint=(1, 0.1), pos_hint={"center_x":0.5, "center_y":0.9})
         welcome_label = Label(text="Productivity Score Calculator", font_size=75, size_hint=(1, 0.1), pos_hint={"center_x":0.5, "center_y":0.9})
         with welcome_label.canvas:
             Color("deeppink")
             Rectangle(pos=welcome_label.pos, size=welcome_label.size)
-        welcome_layout.add_widget(welcome_label)
-
-
-
+        welcome_layout.add_widget(welcome_label)'''
+        #Title text
+        title_layout = TitleLabelLayout(pos_hint={"center_x":0.5, "center_y":0.9}, size_hint=(1, 0.1))
 
         #Preparation Time Input Layout
         prep_time_layout = RelativeLayout(size_hint=(1, 0.2), pos_hint={"center_x":0.5, "center_y":0.75})
@@ -111,7 +117,7 @@ class MainScreen(Screen):
         about_btn.bind(on_press=self.go_to_about)
 
 
-        layout.add_widget(welcome_layout)
+        layout.add_widget(title_layout)
         layout.add_widget(prep_time_layout)
         layout.add_widget(minor_errors_layout)
         layout.add_widget(medium_errors_layout)
@@ -180,10 +186,10 @@ class MainScreen(Screen):
 
             #Make a POPUP ERROR!!!!:)
             #Make a temp layout
-            layout = GridLayout(cols=1, padding=10)
+            layout = PopupGridLayout(cols=1, padding=10, background_color = (239/255, 229/255, 209/255, 1))
 
             #Make a label for that layout and a button also
-            popupLabel = Label(text="Error Processing Your Request, Please Ensure That All\n Fields Have Been Filled With Natural Numbers", font_size = "60", color=(1,1,1,1))
+            popupLabel = Label(text="Error Processing Your Request, Please Ensure That All\n Fields Have Been Filled With Natural Numbers", font_size = "60", color="deeppink")
             closeButton = Button(text="Exit Back To Home Screen",
                                      background_color="deeppink", color=(1, 1, 1, 1),
                                      background_normal='', font_size = "60")
@@ -201,11 +207,11 @@ class MainScreen(Screen):
 
             # Make a POPUP to display the results!!!!!!!:)
             # Make a temp layout
-            layout = GridLayout(cols=1, padding=10)
+            layout = PopupGridLayout(cols=1, padding=10, background_color=(1, 1, 1, 1))
 
             # Make a label for that layout and a button also
             popupLabel = Label(
-                text=f"Based off a prep time of {prep_time} minute(s), {minor_errors_count} minor error(s),\n {medium_errors_count} medium-level error(s), and {severe_errors_count} severe error(s),\n a score of {score} was calculated.", font_size = "60", color=(1,1,1,1))
+                text=f"Based off a prep time of {prep_time} minute(s), {minor_errors_count} minor error(s),\n {medium_errors_count} medium-level error(s), and {severe_errors_count} severe error(s),\n a score of {score} was calculated.", font_size = "60", color="deeppink")
             closeButton = Button(text="Exit Back To Home Screen",
                                  background_color="deeppink", color=(1, 1, 1, 1),
                                  background_normal='', font_size = "60")
@@ -230,7 +236,7 @@ class AboutScreen(Screen):
         layout = RelativeLayout()
 
         #Add the title text
-        layout.add_widget(Label(text="About This:", font_size=75, size_hint=(1, 0.1), pos_hint={"center_x": 0.5, "center_y": 0.95}, bold=True))
+        layout.add_widget(AboutLabelLayout(pos_hint={"center_x":0.5, "center_y":0.95}, size_hint=(1, 0.1)))
 
         #Add the body text pieces
         layout.add_widget(Label(text="This was a project made for Pendo which will help them measure how \nproductive an AI is at making basic standard contracts.", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.85}))
@@ -239,8 +245,18 @@ class AboutScreen(Screen):
         layout.add_widget(Label(text="The formula for the score is: \n100 - timepenalty - (3 x numberofminorerrors)\n - (10 x numberofmediumlevelerrors) - (40 x number of severe errors)", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.35}))
         layout.add_widget(Label(text="The github link for this is \nhttps://github.com/atulbhai1/TimeAndAccuracyScoreCalculatorPen\ndoforOrby#", font_size=60, size_hint=(1, 0.1), pos_hint={"x": 0.01, "center_y": 0.17}))
 
-
+        #Add the button to go back to the main screen
+        back_btn = Button(text="Back To The Home Screen", size_hint=(0.5, 0.1), background_color="deeppink",
+                           color=(1, 1, 1, 1), background_normal='', pos_hint={"center_x": 0.5, "center_y": 0.06},
+                           font_size="60")
+        back_btn.bind(on_press=self.go_to_main_screen)
+        layout.add_widget(back_btn)
         self.add_widget(layout)
+    def switch_to_screen(self, screen_name):
+        self.manager.transition = SlideTransition(direction="right")
+        self.manager.current = screen_name
+    def go_to_main_screen(self, instance):
+        self.switch_to_screen("main")
 
 class MyApp(App):
     def build(self):
